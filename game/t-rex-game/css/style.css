@@ -1,0 +1,176 @@
+/* T-Rex Dinosaur Game Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.game-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    max-width: 900px;
+    width: 100%;
+}
+
+.game-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.game-header h1 {
+    color: #333;
+    font-size: 2.5em;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.score-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 1.2em;
+    color: #666;
+}
+
+.score-label, .high-score-label {
+    font-weight: bold;
+}
+
+#score, #high-score {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.game-canvas-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+#gameCanvas {
+    border: 3px solid #34495e;
+    border-radius: 10px;
+    background: #87CEEB;
+    display: block;
+}
+
+.game-over-screen, .start-screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+.game-over-screen.hidden, .start-screen.hidden {
+    display: none;
+}
+
+.game-over-screen h2, .start-screen h2 {
+    color: #e74c3c;
+    margin-bottom: 15px;
+    font-size: 2em;
+}
+
+.start-screen h2 {
+    color: #27ae60;
+}
+
+.game-over-screen p, .start-screen p {
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 1.1em;
+}
+
+#restartBtn, #startBtn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+#restartBtn:hover, #startBtn:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+}
+
+.game-controls {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.control-info {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #3498db;
+}
+
+.control-info p {
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.control-info p:first-child {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .game-container {
+        padding: 20px;
+    }
+    
+    .game-header h1 {
+        font-size: 2em;
+    }
+    
+    #gameCanvas {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+    }
+    
+    .score-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-header h1 {
+        font-size: 1.5em;
+    }
+    
+    .game-over-screen, .start-screen {
+        padding: 20px;
+        width: 90%;
+    }
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>2048</h1>
+            <div class="score-container">
+                <div class="score-box">
+                    <div class="score-label">Score</div>
+                    <div id="score">0</div>
+                </div>
+                <div class="score-box">
+                    <div class="score-label">Best</div>
+                    <div id="best">0</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-intro">
+            <p><strong>HOW TO PLAY:</strong> Use your arrow keys to move the tiles. When two tiles with the same number touch, they merge into one!</p>
+        </div>
+        
+        <div class="button-container">
+            <div class="restart-button" onclick="game.restart()">New Game</div>
+            <div class="auto-win-button" onclick="game.toggleAutoPlay()" id="auto-play-btn">Auto Play</div>
+            <div class="add-tile-button" onclick="game.toggleAddTileMode()" id="add-tile-btn">Add Tile</div>
+        </div>
+
+        <div class="size-container">
+            <span class="size-label">Grid Size:</span>
+            <div class="size-button" onclick="game.setGridSize(3)" id="size-3x3">3x3</div>
+            <div class="size-button active" onclick="game.setGridSize(4)" id="size-4x4">4x4</div>
+            <div class="size-button" onclick="game.setGridSize(5)" id="size-5x5">5x5</div>
+            <div class="size-button" onclick="game.setGridSize(6)" id="size-6x6">6x6</div>
+            <div class="size-button" onclick="game.setGridSize(8)" id="size-8x8">8x8</div>
+        </div>
+        
+        <div class="speed-container" id="speed-container" style="display: none;">
+            <span class="speed-label">Speed:</span>
+            <div class="speed-button" onclick="game.setSpeed(1)" id="speed-1x">1x</div>
+            <div class="speed-button active" onclick="game.setSpeed(2)" id="speed-2x">2x</div>
+            <div class="speed-button" onclick="game.setSpeed(4)" id="speed-4x">4x</div>
+            <div class="speed-button" onclick="game.setSpeed(8)" id="speed-8x">8x</div>
+        </div>
+
+        <div class="tile-selector-container" id="tile-selector-container" style="display: none;">
+            <span class="tile-selector-label">Select tile to add:</span>
+            <div class="tile-selector-button active" onclick="game.setSelectedTile(2)" id="tile-2">+2</div>
+            <div class="tile-selector-button" onclick="game.setSelectedTile(4)" id="tile-4">+4</div>
+            <div class="tile-selector-button" onclick="game.setSelectedTile(8)" id="tile-8">+8</div>
+            <div class="tile-selector-button" onclick="game.setSelectedTile(16)" id="tile-16">+16</div>
+            <div class="add-tile-info">Click on an empty cell to add the selected tile</div>
+        </div>
+        
+        <div class="game-container" id="game-container">
+            <div class="grid-container" id="grid-container">
+                <!-- Grid will be generated dynamically -->
+            </div>
+            <div class="tile-container" id="tile-container">
+            </div>
+        </div>
+        
+        <div class="game-message" id="game-message">
+            <p></p>
+            <div class="lower">
+                <div class="restart-button" onclick="game.restart()">Try Again</div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

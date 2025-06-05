@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T-Rex Dinosaur Game - Chrome Dino Runner</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1>T-Rex Dinosaur Game</h1>
+            <div class="score-container">
+                <span class="score-label">Score:</span>
+                <span id="score">0</span>
+                <span class="high-score-label">High Score:</span>
+                <span id="high-score">0</span>
+            </div>
+        </div>
+        
+        <div class="game-canvas-container">
+            <canvas id="gameCanvas" width="800" height="200"></canvas>
+            <div class="game-over-screen" id="gameOverScreen">
+                <h2>Game Over</h2>
+                <p>Your Score: <span id="finalScore">0</span></p>
+                <button id="restartBtn">Restart Game</button>
+            </div>
+            <div class="start-screen" id="startScreen">
+                <h2>T-Rex Dinosaur Game</h2>
+                <p>Press SPACE to start</p>
+                <p>Use SPACE to jump and DOWN arrow to duck</p>
+                <button id="startBtn">Start Game</button>
+            </div>
+        </div>
+        
+        <div class="game-controls">
+            <div class="control-info">
+                <p><strong>Controls:</strong></p>
+                <p>SPACE - Jump</p>
+                <p>DOWN ARROW - Duck</p>
+                <p>R - Restart</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/game.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/obstacles.js"></script>
+    <script src="js/background.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
