@@ -1,0 +1,3 @@
+# Boring
+
+A simple repository.
