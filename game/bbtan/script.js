@@ -121,14 +121,26 @@ let score = 0;
 
 // Input handling
 let currentMousePos = null;
-let isClicked = false;
 
-canvas.addEventListener('pointerdown', e => {
+canvas.addEventListener('mousedown', e => {
   if (state !== 'aim') return;
-  isClicked = true;
+  e.preventDefault();
+
+  // Get current mouse position for aiming
+  const pos = getCanvasPos(e);
+  const dx = pos.x - launchPoint.x;
+  const dy = pos.y - launchPoint.y;
+  const len = Math.hypot(dx, dy);
+
+  if (len > 10) { // Minimum distance to shoot
+    const shootVector = { x: dx / len, y: dy / len };
+    launchVolley(shootVector, totalBallsCollected);
+    state = 'fly';
+    aimVector = null; // Clear aim line after shooting
+  }
 });
 
-canvas.addEventListener('pointermove', e => {
+canvas.addEventListener('mousemove', e => {
   if (state !== 'aim') return;
   currentMousePos = getCanvasPos(e);
 
@@ -144,19 +156,46 @@ canvas.addEventListener('pointermove', e => {
   }
 });
 
-canvas.addEventListener('pointerup', e => {
-  if (!isClicked || state !== 'aim') return;
-  if (aimVector) {
-    launchVolley(aimVector, totalBallsCollected);
-    state = 'fly';
-  }
-  isClicked = false;
-});
-
-canvas.addEventListener('pointerleave', e => {
+canvas.addEventListener('mouseleave', () => {
   currentMousePos = null;
   aimVector = null;
-  isClicked = false;
+});
+
+// Touch support for mobile
+canvas.addEventListener('touchstart', e => {
+  if (state !== 'aim') return;
+  e.preventDefault();
+
+  const touch = e.touches[0];
+  const pos = getCanvasPos(touch);
+  const dx = pos.x - launchPoint.x;
+  const dy = pos.y - launchPoint.y;
+  const len = Math.hypot(dx, dy);
+
+  if (len > 10) {
+    const shootVector = { x: dx / len, y: dy / len };
+    launchVolley(shootVector, totalBallsCollected);
+    state = 'fly';
+    aimVector = null;
+  }
+});
+
+canvas.addEventListener('touchmove', e => {
+  if (state !== 'aim') return;
+  e.preventDefault();
+
+  const touch = e.touches[0];
+  currentMousePos = getCanvasPos(touch);
+
+  const dx = currentMousePos.x - launchPoint.x;
+  const dy = currentMousePos.y - launchPoint.y;
+  const len = Math.hypot(dx, dy);
+
+  if (len > 10) {
+    aimVector = { x: dx / len, y: dy / len };
+  } else {
+    aimVector = null;
+  }
 });
 
 function getCanvasPos(e) {
@@ -235,6 +274,7 @@ function update(dt) {
     if (balls.every(b => !b.active)) { // End of volley
       balls = []; // Collected
       combo = 0; // Reset combo when volley ends
+      UIcombo.textContent = combo;
       currentRound++;
       UIround.textContent = currentRound;
       spawnRow();
@@ -277,7 +317,6 @@ function checkCollision(br) {
       ball.y - BALL_RADIUS < r.y + r.h
     ) {
       // Pick side to reflect
-      const prevX = ball.x - ball.vx / 60;
       const prevY = ball.y - ball.vy / 60;
       let hitHorizontal = prevY <= r.y || prevY >= r.y + r.h;
       if (hitHorizontal) ball.vy *= -1;
@@ -292,7 +331,6 @@ function checkCollision(br) {
         } else if (br.kind === 'split') {
           // Create two new balls at ±20 degrees
           const angle = Math.atan2(ball.vy, ball.vx);
-          const speed = Math.hypot(ball.vx, ball.vy);
           const splitAngle = 20 * Math.PI / 180; // 20 degrees in radians
 
           balls.push(new Ball(ball.x, ball.y, {

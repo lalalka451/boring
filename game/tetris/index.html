@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris - Classic Block Puzzle Game</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-header">
+            <h1>TETRIS</h1>
+            <div class="game-info">
+                <div class="info-panel">
+                    <h3>Score</h3>
+                    <div id="score">0</div>
+                </div>
+                <div class="info-panel">
+                    <h3>Level</h3>
+                    <div id="level">1</div>
+                </div>
+                <div class="info-panel">
+                    <h3>Lines</h3>
+                    <div id="lines">0</div>
+                </div>
+                <div class="info-panel">
+                    <h3>High Score</h3>
+                    <div id="high-score">0</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-main">
+            <div class="game-left">
+                <div class="next-piece-container">
+                    <h3>Next</h3>
+                    <canvas id="nextCanvas" width="120" height="120"></canvas>
+                </div>
+                <div class="hold-piece-container">
+                    <h3>Hold</h3>
+                    <canvas id="holdCanvas" width="120" height="120"></canvas>
+                </div>
+            </div>
+            
+            <div class="game-center">
+                <canvas id="gameCanvas" width="300" height="600"></canvas>
+                <div class="game-overlay" id="gameOverlay">
+                    <div class="overlay-content">
+                        <h2 id="overlayTitle">TETRIS</h2>
+                        <p id="overlayMessage">Press SPACE to start</p>
+                        <button id="startBtn" class="game-btn">Start Game</button>
+                        <button id="pauseBtn" class="game-btn" style="display: none;">Pause</button>
+                        <button id="restartBtn" class="game-btn" style="display: none;">Restart</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="game-right">
+                <div class="controls-info">
+                    <h3>Controls</h3>
+                    <div class="control-item">
+                        <span class="key">←→</span>
+                        <span class="action">Move</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="key">↓</span>
+                        <span class="action">Soft Drop</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="key">↑</span>
+                        <span class="action">Rotate</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="key">SPACE</span>
+                        <span class="action">Hard Drop</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="key">C</span>
+                        <span class="action">Hold</span>
+                    </div>
+                    <div class="control-item">
+                        <span class="key">P</span>
+                        <span class="action">Pause</span>
+                    </div>
+                </div>
+                
+                <div class="statistics">
+                    <h3>Statistics</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">I-Pieces:</span>
+                        <span id="stat-I">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">O-Pieces:</span>
+                        <span id="stat-O">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">T-Pieces:</span>
+                        <span id="stat-T">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">S-Pieces:</span>
+                        <span id="stat-S">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Z-Pieces:</span>
+                        <span id="stat-Z">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">J-Pieces:</span>
+                        <span id="stat-J">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">L-Pieces:</span>
+                        <span id="stat-L">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mobile-controls" id="mobileControls">
+            <div class="mobile-row">
+                <button class="mobile-btn" id="holdBtn">Hold</button>
+                <button class="mobile-btn" id="rotateBtn">↻</button>
+                <button class="mobile-btn" id="hardDropBtn">Drop</button>
+            </div>
+            <div class="mobile-row">
+                <button class="mobile-btn" id="leftBtn">←</button>
+                <button class="mobile-btn" id="downBtn">↓</button>
+                <button class="mobile-btn" id="rightBtn">→</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/tetrominos.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/piece.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
