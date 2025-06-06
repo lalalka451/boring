@@ -1,0 +1,242 @@
+.building-card {
+  background: white;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.building-card:hover {
+  border-color: #4a90e2;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(74, 144, 226, 0.15);
+}
+
+.building-card.clickable {
+  border-color: #28a745;
+}
+
+.building-card.clickable:hover {
+  border-color: #20c997;
+  box-shadow: 0 8px 25px rgba(40, 167, 69, 0.2);
+}
+
+.building-card.buildable {
+  border-color: #ffc107;
+}
+
+.building-card.buildable:hover {
+  border-color: #ffb300;
+  box-shadow: 0 8px 25px rgba(255, 193, 7, 0.2);
+}
+
+.building-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.building-icon {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.building-info {
+  flex: 1;
+}
+
+.building-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.building-count {
+  font-size: 16px;
+  font-weight: 500;
+  color: #4a90e2;
+}
+
+.building-cost {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 12px;
+  border-left: 4px solid #dc3545;
+}
+
+.building-cost.affordable {
+  border-left-color: #28a745;
+  background: #f8fff9;
+}
+
+.cost-label, .production-label, .consumption-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cost-items, .production-items, .consumption-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.cost-item, .production-item, .consumption-item {
+  background: rgba(74, 144, 226, 0.1);
+  color: #4a90e2;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.production-item {
+  background: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+}
+
+.consumption-item {
+  background: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
+
+.build-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  align-self: flex-start;
+  min-width: 80px;
+}
+
+.build-btn.enabled:hover {
+  background: #218838;
+  transform: translateY(-1px);
+}
+
+.build-btn.disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.build-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+}
+
+.building-production {
+  background: rgba(40, 167, 69, 0.05);
+  border-radius: 8px;
+  padding: 12px;
+  border-left: 4px solid #28a745;
+}
+
+.building-consumption {
+  background: rgba(220, 53, 69, 0.05);
+  border-radius: 8px;
+  padding: 12px;
+  border-left: 4px solid #dc3545;
+}
+
+.building-capacity {
+  background: rgba(255, 193, 7, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  border-left: 4px solid #ffc107;
+}
+
+.capacity-item {
+  font-size: 12px;
+  font-weight: 500;
+  color: #856404;
+}
+
+.building-workers {
+  background: rgba(108, 117, 125, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  border-left: 4px solid #6c757d;
+}
+
+.worker-info, .worker-requirement {
+  display: block;
+  font-size: 11px;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.worker-requirement {
+  font-size: 10px;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
+.building-description {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.4;
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.click-hint {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(40, 167, 69, 0.9);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 500;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@media (max-width: 768px) {
+  .building-card {
+    padding: 15px;
+    min-height: 180px;
+  }
+  
+  .building-header {
+    gap: 12px;
+  }
+  
+  .building-icon {
+    font-size: 40px;
+  }
+  
+  .building-name {
+    font-size: 16px;
+  }
+  
+  .building-count {
+    font-size: 14px;
+  }
+}

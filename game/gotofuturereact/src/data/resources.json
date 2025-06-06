@@ -1,0 +1,199 @@
+{
+  "population": {
+    "id": "population",
+    "name": "人口",
+    "icon": "👥",
+    "category": "basic",
+    "baseValue": 10,
+    "maxValue": 1000000000000,
+    "growthRate": 0,
+    "isWorker": true,
+    "description": "可分配的工人数量"
+  },
+  "food": {
+    "id": "food",
+    "name": "食物",
+    "icon": "🍞",
+    "category": "basic",
+    "baseValue": 50,
+    "maxValue": 1000000000000,
+    "growthRate": 0,
+    "consumptionRate": 1,
+    "description": "维持人口生存的基本资源"
+  },
+  "wood": {
+    "id": "wood",
+    "name": "木材",
+    "icon": "🪵",
+    "category": "basic",
+    "baseValue": 10,
+    "maxValue": 1000000000000,
+    "growthRate": 0,
+    "description": "建造和燃料的基础材料"
+  },
+  "stone": {
+    "id": "stone",
+    "name": "石头",
+    "icon": "🪨",
+    "category": "basic",
+    "baseValue": 0,
+    "maxValue": 1000000000000,
+    "growthRate": 0,
+    "unlockEra": "stone_age",
+    "description": "坚固建筑的必需材料（需要采石场解锁）"
+  },
+  "clay": {
+    "id": "clay",
+    "name": "黏土",
+    "icon": "🧱",
+    "category": "basic",
+    "baseValue": 0,
+    "maxValue": 1000000000000,
+    "growthRate": 0,
+    "unlockEra": "stone_age",
+    "description": "制作陶器和砖块的材料"
+  },
+  "copper": {
+    "id": "copper",
+    "name": "铜矿",
+    "icon": "🟫",
+    "category": "metal",
+    "baseValue": 0,
+    "maxValue": 1000000000000,
+    "growthRate": 0,
+    "unlockEra": "bronze_age",
+    "description": "制作青铜的重要金属"
+  },
+  "tin": {
+    "id": "tin",
+    "name": "锡矿",
+    "icon": "⚪",
+    "category": "metal",
+    "baseValue": 0,
+    "maxValue": 1000000000000,
+    "growthRate": 0,
+    "unlockEra": "bronze_age",
+    "description": "与铜合成青铜的金属"
+  },
+  "bronze": {
+    "id": "bronze",
+    "name": "青铜",
+    "icon": "🟤",
+    "category": "metal",
+    "baseValue": 0,
+    "maxValue": 1000000000000,
+    "growthRate": 0,
+    "unlockEra": "bronze_age",
+    "recipe": {
+      "copper": 3,
+      "tin": 1
+    },
+    "description": "铜锡合金，比纯铜更坚硬"
+  },
+  "iron": {
+    "id": "iron",
+    "name": "铁矿",
+    "icon": "⚫",
+    "category": "metal",
+    "baseValue": 0,
+    "maxValue": 1000000000000,
+    "growthRate": 0,
+    "unlockEra": "iron_age",
+    "description": "工业革命的基础金属"
+  },
+  "coal": {
+    "id": "coal",
+    "name": "煤炭",
+    "icon": "⚫",
+    "category": "energy",
+    "baseValue": 0,
+    "maxValue": 1000000000000,
+    "growthRate": 0,
+    "unlockEra": "iron_age",
+    "description": "重要的燃料和冶炼材料"
+  },
+  "steel": {
+    "id": "steel",
+    "name": "钢铁",
+    "icon": "🔩",
+    "category": "metal",
+    "baseValue": 0,
+    "maxValue": 1000000000000,
+    "growthRate": 0,
+    "unlockEra": "iron_age",
+    "recipe": {
+      "iron": 2,
+      "coal": 1
+    },
+    "description": "比铁更强韧的合金"
+  },
+  "electricity": {
+    "id": "electricity",
+    "name": "电力",
+    "icon": "⚡",
+    "category": "energy",
+    "baseValue": 0,
+    "maxValue": 1000000000000,
+    "growthRate": 0,
+    "unlockEra": "industrial_age",
+    "description": "现代文明的动力源泉"
+  },
+  "silicon": {
+    "id": "silicon",
+    "name": "硅",
+    "icon": "💎",
+    "category": "tech",
+    "baseValue": 0,
+    "maxValue": 1000000000000,
+    "growthRate": 0,
+    "unlockEra": "information_age",
+    "description": "制造芯片的核心材料"
+  },
+  "ai_cores": {
+    "id": "ai_cores",
+    "name": "AI核心",
+    "icon": "🧠",
+    "category": "tech",
+    "baseValue": 0,
+    "maxValue": 1000000000000,
+    "growthRate": 0,
+    "unlockEra": "information_age",
+    "description": "人工智能的大脑"
+  },
+  "antimatter": {
+    "id": "antimatter",
+    "name": "反物质",
+    "icon": "💫",
+    "category": "space",
+    "baseValue": 0,
+    "maxValue": 1000000000000,
+    "growthRate": 0,
+    "unlockEra": "space_age",
+    "description": "宇宙中最强大的能源"
+  },
+  "warp_cores": {
+    "id": "warp_cores",
+    "name": "曲率核心",
+    "icon": "🌀",
+    "category": "space",
+    "baseValue": 0,
+    "maxValue": 1000000000000,
+    "growthRate": 0,
+    "unlockEra": "space_age",
+    "recipe": {
+      "antimatter": 100,
+      "ai_cores": 10
+    },
+    "description": "超光速旅行的关键技术"
+  },
+  "genius_coins": {
+    "id": "genius_coins",
+    "name": "天才币",
+    "icon": "🪙",
+    "category": "special",
+    "baseValue": 0,
+    "maxValue": 1000000000000,
+    "growthRate": 0,
+    "description": "通过迷你游戏获得的特殊货币"
+  }
+}

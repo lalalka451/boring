@@ -1,0 +1,246 @@
+{
+  "tree": {
+    "id": "tree",
+    "name": "一棵人树",
+    "icon": "🌳",
+    "category": "basic",
+    "era": "stone_age",
+    "description": "最原始的资源点，可以手动采集木材",
+    "baseCost": {},
+    "costMultiplier": 1.0,
+    "maxCount": 1,
+    "unlockRequirements": {},
+    "production": {},
+    "consumption": {},
+    "workerCapacity": 0,
+    "clickable": true,
+    "clickProduction": {
+      "wood": 1
+    }
+  },
+  "gathering_hut": {
+    "id": "gathering_hut",
+    "name": "采集小屋",
+    "icon": "🏠",
+    "category": "basic",
+    "era": "stone_age",
+    "description": "派遣工人采集木材和食物",
+    "baseCost": {
+      "wood": 25
+    },
+    "costMultiplier": 1.15,
+    "maxCount": 1000000,
+    "unlockRequirements": {
+      "resources": {
+        "wood": 15
+      }
+    },
+    "production": {
+      "wood": 2,
+      "food": 1
+    },
+    "consumption": {},
+    "workerCapacity": 2,
+    "workerRequirement": 1
+  },
+  "quarry": {
+    "id": "quarry",
+    "name": "采石场",
+    "icon": "⛏️",
+    "category": "mining",
+    "era": "stone_age",
+    "description": "开采石头，解锁石头资源",
+    "baseCost": {
+      "wood": 50
+    },
+    "costMultiplier": 1.2,
+    "maxCount": 1000000,
+    "unlockRequirements": {
+      "buildings": {
+        "gathering_hut": 2
+      }
+    },
+    "production": {
+      "stone": 1
+    },
+    "consumption": {},
+    "workerCapacity": 3,
+    "workerRequirement": 2,
+    "specialEffect": "unlock_resource"
+  },
+  "simple_hut": {
+    "id": "simple_hut",
+    "name": "简陋居所",
+    "icon": "🏘️",
+    "category": "housing",
+    "era": "stone_age",
+    "description": "提供人口容量上限",
+    "baseCost": {
+      "wood": 30,
+      "stone": 15
+    },
+    "costMultiplier": 1.1,
+    "maxCount": 1000000,
+    "unlockRequirements": {
+      "buildings": {
+        "quarry": 1
+      }
+    },
+    "production": {},
+    "consumption": {},
+    "populationCapacity": 5,
+    "workerCapacity": 0
+  },
+  "hunting_lodge": {
+    "id": "hunting_lodge",
+    "name": "打猎小屋",
+    "icon": "🏹",
+    "category": "food",
+    "era": "stone_age",
+    "description": "专门生产食物的建筑",
+    "baseCost": {
+      "wood": 40,
+      "stone": 20
+    },
+    "costMultiplier": 1.2,
+    "maxCount": 1000000,
+    "unlockRequirements": {
+      "buildings": {
+        "simple_hut": 1
+      }
+    },
+    "production": {
+      "food": 5
+    },
+    "consumption": {},
+    "workerCapacity": 3,
+    "workerRequirement": 2
+  },
+  "herb_garden": {
+    "id": "herb_garden",
+    "name": "草药园",
+    "icon": "🌿",
+    "category": "special",
+    "era": "stone_age",
+    "description": "提供医疗效果，减少人口死亡率",
+    "baseCost": {
+      "wood": 50,
+      "stone": 25
+    },
+    "costMultiplier": 1.5,
+    "maxCount": 100,
+    "unlockRequirements": {
+      "population": 50
+    },
+    "production": {},
+    "consumption": {
+      "food": 1
+    },
+    "workerCapacity": 1,
+    "specialEffect": "population_growth_bonus",
+    "effectValue": 0.1
+  },
+  "farm": {
+    "id": "farm",
+    "name": "农田",
+    "icon": "🌾",
+    "category": "food",
+    "era": "bronze_age",
+    "description": "大规模生产食物",
+    "baseCost": {
+      "wood": 100,
+      "stone": 50,
+      "bronze": 10
+    },
+    "costMultiplier": 1.15,
+    "maxCount": 1000000,
+    "unlockRequirements": {
+      "era": "bronze_age",
+      "resources": {
+        "bronze": 50
+      }
+    },
+    "production": {
+      "food": 20
+    },
+    "consumption": {},
+    "workerCapacity": 5,
+    "workerRequirement": 3
+  },
+  "bronze_workshop": {
+    "id": "bronze_workshop",
+    "name": "青铜工坊",
+    "icon": "🔨",
+    "category": "production",
+    "era": "bronze_age",
+    "description": "将铜和锡合成青铜",
+    "baseCost": {
+      "wood": 200,
+      "stone": 100
+    },
+    "costMultiplier": 1.25,
+    "maxCount": 1000000,
+    "unlockRequirements": {
+      "era": "bronze_age",
+      "resources": {
+        "copper": 10,
+        "tin": 10
+      }
+    },
+    "production": {
+      "bronze": 1
+    },
+    "consumption": {
+      "copper": 3,
+      "tin": 1
+    },
+    "workerCapacity": 4,
+    "workerRequirement": 2
+  },
+  "copper_mine": {
+    "id": "copper_mine",
+    "name": "铜矿",
+    "icon": "⛏️",
+    "category": "mining",
+    "era": "bronze_age",
+    "description": "开采铜矿石",
+    "baseCost": {
+      "wood": 150,
+      "stone": 200
+    },
+    "costMultiplier": 1.2,
+    "maxCount": 1000000,
+    "unlockRequirements": {
+      "era": "bronze_age"
+    },
+    "production": {
+      "copper": 3
+    },
+    "consumption": {},
+    "workerCapacity": 6,
+    "workerRequirement": 4
+  },
+  "tin_mine": {
+    "id": "tin_mine",
+    "name": "锡矿",
+    "icon": "⛏️",
+    "category": "mining",
+    "era": "bronze_age",
+    "description": "开采锡矿石",
+    "baseCost": {
+      "wood": 150,
+      "stone": 200
+    },
+    "costMultiplier": 1.2,
+    "maxCount": 1000000,
+    "unlockRequirements": {
+      "era": "bronze_age"
+    },
+    "production": {
+      "tin": 1
+    },
+    "consumption": {},
+    "workerCapacity": 6,
+    "workerRequirement": 4
+  }
+}

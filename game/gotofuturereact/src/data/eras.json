@@ -1,0 +1,171 @@
+{
+  "stone_age": {
+    "id": "stone_age",
+    "name": "石器时代",
+    "description": "人类文明的起点，学会使用简单工具",
+    "icon": "🗿",
+    "unlockRequirements": {},
+    "advanceRequirements": {
+      "population": 1000,
+      "buildings": {
+        "simple_hut": 10
+      }
+    },
+    "techMultipliers": {
+      "population_cap": 1.0,
+      "food_production": 1.0,
+      "wood_production": 1.0
+    }
+  },
+  "bronze_age": {
+    "id": "bronze_age",
+    "name": "青铜时代",
+    "description": "掌握金属冶炼，文明开始腾飞",
+    "icon": "🔥",
+    "unlockRequirements": {
+      "era": "stone_age",
+      "population": 1000,
+      "buildings": {
+        "simple_hut": 10
+      }
+    },
+    "advanceRequirements": {
+      "population": 10000,
+      "resources": {
+        "bronze": 5000
+      }
+    },
+    "techMultipliers": {
+      "population_cap": 2.0,
+      "food_production": 1.5,
+      "wood_production": 1.2,
+      "metal_production": 1.0
+    }
+  },
+  "iron_age": {
+    "id": "iron_age",
+    "name": "铁器时代",
+    "description": "铁器的普及带来生产力革命",
+    "icon": "⚔️",
+    "unlockRequirements": {
+      "era": "bronze_age",
+      "population": 10000,
+      "resources": {
+        "bronze": 5000
+      }
+    },
+    "advanceRequirements": {
+      "population": 100000,
+      "resources": {
+        "iron": 50000,
+        "steel": 10000
+      }
+    },
+    "techMultipliers": {
+      "population_cap": 5.0,
+      "food_production": 2.0,
+      "wood_production": 1.5,
+      "metal_production": 2.0
+    }
+  },
+  "industrial_age": {
+    "id": "industrial_age",
+    "name": "工业时代",
+    "description": "蒸汽机的发明开启工业革命",
+    "icon": "🏭",
+    "unlockRequirements": {
+      "era": "iron_age",
+      "population": 100000,
+      "resources": {
+        "iron": 50000,
+        "steel": 10000
+      }
+    },
+    "advanceRequirements": {
+      "population": 1000000,
+      "resources": {
+        "coal": 100000,
+        "electricity": 50000
+      }
+    },
+    "techMultipliers": {
+      "population_cap": 10.0,
+      "food_production": 5.0,
+      "metal_production": 10.0,
+      "energy_production": 1.0
+    }
+  },
+  "information_age": {
+    "id": "information_age",
+    "name": "信息时代",
+    "description": "计算机和互联网改变世界",
+    "icon": "💻",
+    "unlockRequirements": {
+      "era": "industrial_age",
+      "population": 1000000,
+      "resources": {
+        "coal": 100000,
+        "electricity": 50000
+      }
+    },
+    "advanceRequirements": {
+      "population": 10000000,
+      "resources": {
+        "silicon": 1000000,
+        "ai_cores": 10000
+      }
+    },
+    "techMultipliers": {
+      "population_cap": 50.0,
+      "research_speed": 10.0,
+      "automation": 5.0,
+      "ai_production": 1.0
+    }
+  },
+  "space_age": {
+    "id": "space_age",
+    "name": "太空时代",
+    "description": "征服星辰大海的时代",
+    "icon": "🚀",
+    "unlockRequirements": {
+      "era": "information_age",
+      "population": 10000000,
+      "resources": {
+        "silicon": 1000000,
+        "ai_cores": 10000
+      }
+    },
+    "advanceRequirements": {
+      "population": 100000000,
+      "resources": {
+        "antimatter": 100000,
+        "warp_cores": 1000
+      }
+    },
+    "techMultipliers": {
+      "population_cap": 100.0,
+      "energy_production": 100.0,
+      "space_production": 1.0
+    }
+  },
+  "multidimensional_age": {
+    "id": "multidimensional_age",
+    "name": "多维时代",
+    "description": "超越三维空间的终极文明",
+    "icon": "🌌",
+    "unlockRequirements": {
+      "era": "space_age",
+      "population": 100000000,
+      "resources": {
+        "antimatter": 100000,
+        "warp_cores": 1000
+      }
+    },
+    "advanceRequirements": {},
+    "techMultipliers": {
+      "population_cap": 1000.0,
+      "all_production": 1000.0,
+      "dimensional_power": 1.0
+    }
+  }
+}

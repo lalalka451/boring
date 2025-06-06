@@ -1,0 +1,124 @@
+{
+  "first_tree": {
+    "id": "first_tree",
+    "name": "第一棵树",
+    "description": "点击人树获得第一份木材",
+    "icon": "🌳",
+    "category": "basic",
+    "requirements": {
+      "resources": {
+        "wood": 1
+      }
+    },
+    "reward": {
+      "type": "none"
+    }
+  },
+  "first_building": {
+    "id": "first_building",
+    "name": "建筑师",
+    "description": "建造第一个建筑",
+    "icon": "🏗️",
+    "category": "basic",
+    "requirements": {
+      "buildings_built": 1
+    },
+    "reward": {
+      "type": "none"
+    }
+  },
+  "population_100": {
+    "id": "population_100",
+    "name": "小村庄",
+    "description": "人口达到100",
+    "icon": "🏘️",
+    "category": "population",
+    "requirements": {
+      "resources": {
+        "population": 100
+      }
+    },
+    "reward": {
+      "type": "resource",
+      "resource": "food",
+      "amount": 500
+    }
+  },
+  "stone_discoverer": {
+    "id": "stone_discoverer",
+    "name": "石头发现者",
+    "description": "建造采石场，解锁石头资源",
+    "icon": "🪨",
+    "category": "discovery",
+    "requirements": {
+      "buildings": {
+        "quarry": 1
+      }
+    },
+    "reward": {
+      "type": "resource",
+      "resource": "stone",
+      "amount": 50
+    }
+  },
+  "bronze_age_pioneer": {
+    "id": "bronze_age_pioneer",
+    "name": "青铜时代先驱",
+    "description": "进入青铜时代",
+    "icon": "🔥",
+    "category": "era",
+    "requirements": {
+      "era": "bronze_age"
+    },
+    "reward": {
+      "type": "multiplier",
+      "value": 0.1
+    }
+  },
+  "master_builder": {
+    "id": "master_builder",
+    "name": "建筑大师",
+    "description": "建造100个建筑",
+    "icon": "🏗️",
+    "category": "building",
+    "requirements": {
+      "total_buildings": 100
+    },
+    "reward": {
+      "type": "multiplier",
+      "value": 0.2
+    }
+  },
+  "resource_hoarder": {
+    "id": "resource_hoarder",
+    "name": "资源囤积者",
+    "description": "同时拥有1000个木材和石头",
+    "icon": "📦",
+    "category": "resource",
+    "requirements": {
+      "resources": {
+        "wood": 1000,
+        "stone": 1000
+      }
+    },
+    "reward": {
+      "type": "resource",
+      "resource": "genius_coins",
+      "amount": 100
+    }
+  },
+  "first_prestige": {
+    "id": "first_prestige",
+    "name": "重生者",
+    "description": "完成第一次重生",
+    "icon": "🌟",
+    "category": "prestige",
+    "requirements": {
+      "playthrough": 2
+    },
+    "reward": {
+      "type": "multiplier",
+      "value": 0.5
+    }
+  }
+}
