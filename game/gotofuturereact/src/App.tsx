@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useGameStore } from './store/gameStore';
+import { useGameStore, startGameLoop, stopGameLoop } from './store';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import MainContent from './components/MainContent';
@@ -7,24 +7,22 @@ import ActivityLog from './components/ActivityLog';
 import './App.css';
 
 const App: React.FC = () => {
-  const { tick, isLoading } = useGameStore();
+  const isLoading = useGameStore(state => state.isLoading);
+  const saveGame = useGameStore(state => state.saveGame);
 
   useEffect(() => {
-    // Start game loop
-    const gameLoop = setInterval(() => {
-      tick();
-    }, 250); // 4 ticks per second
+    startGameLoop(); // Start game loop from the store
 
     // Auto-save every 30 seconds
-    const autoSave = setInterval(() => {
-      useGameStore.getState().saveGame();
+    const autoSaveInterval = setInterval(() => {
+      saveGame(); // Call saveGame from the store
     }, 30000);
 
     return () => {
-      clearInterval(gameLoop);
-      clearInterval(autoSave);
+      stopGameLoop(); // Stop game loop from the store
+      clearInterval(autoSaveInterval);
     };
-  }, [tick]);
+  }, [saveGame]); // Add saveGame to dependency array
 
   if (isLoading) {
     return (

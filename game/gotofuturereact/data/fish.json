@@ -1,0 +1,163 @@
+[
+  {
+    "id": "carp_common",
+    "name": "鲤鱼",
+    "icon": "🐟",
+    "rarity": "common",
+    "minCoins": 4,
+    "maxCoins": 7,
+    "biome": "river",
+    "chance": 0.25
+  },
+  {
+    "id": "crucian_carp",
+    "name": "鲫鱼", 
+    "icon": "🐠",
+    "rarity": "common",
+    "minCoins": 3,
+    "maxCoins": 5,
+    "biome": "river",
+    "chance": 0.25
+  },
+  {
+    "id": "grass_carp",
+    "name": "草鱼",
+    "icon": "🐟",
+    "rarity": "common", 
+    "minCoins": 4,
+    "maxCoins": 6,
+    "biome": "lake",
+    "chance": 0.20
+  },
+  {
+    "id": "black_fish",
+    "name": "黑鱼",
+    "icon": "🐠",
+    "rarity": "common",
+    "minCoins": 4,
+    "maxCoins": 6,
+    "biome": "swamp",
+    "chance": 0.20
+  },
+  {
+    "id": "small_bass",
+    "name": "小鲈鱼",
+    "icon": "🐟",
+    "rarity": "common",
+    "minCoins": 5,
+    "maxCoins": 8,
+    "biome": "lake",
+    "chance": 0.15
+  },
+  {
+    "id": "koi_red",
+    "name": "红鲤",
+    "icon": "🐠",
+    "rarity": "rare",
+    "minCoins": 15,
+    "maxCoins": 25,
+    "biome": "garden",
+    "chance": 0.08
+  },
+  {
+    "id": "eel",
+    "name": "鳗鱼",
+    "icon": "🐍",
+    "rarity": "rare",
+    "minCoins": 18,
+    "maxCoins": 28,
+    "biome": "river",
+    "chance": 0.06
+  },
+  {
+    "id": "flounder",
+    "name": "比目鱼",
+    "icon": "🐟",
+    "rarity": "rare",
+    "minCoins": 20,
+    "maxCoins": 30,
+    "biome": "sea",
+    "chance": 0.05
+  },
+  {
+    "id": "salmon",
+    "name": "三文鱼",
+    "icon": "🐠",
+    "rarity": "rare",
+    "minCoins": 22,
+    "maxCoins": 32,
+    "biome": "river",
+    "chance": 0.04
+  },
+  {
+    "id": "king_crab",
+    "name": "帝王蟹",
+    "icon": "🦀",
+    "rarity": "epic",
+    "minCoins": 80,
+    "maxCoins": 120,
+    "biome": "sea",
+    "chance": 0.02
+  },
+  {
+    "id": "great_white",
+    "name": "大白鲨",
+    "icon": "🦈",
+    "rarity": "epic",
+    "minCoins": 90,
+    "maxCoins": 130,
+    "biome": "sea",
+    "chance": 0.015
+  },
+  {
+    "id": "giant_octopus",
+    "name": "巨型章鱼",
+    "icon": "🐙",
+    "rarity": "epic",
+    "minCoins": 85,
+    "maxCoins": 125,
+    "biome": "sea",
+    "chance": 0.015
+  },
+  {
+    "id": "dragon_fish",
+    "name": "龙鱼",
+    "icon": "🐲",
+    "rarity": "legendary",
+    "minCoins": 160,
+    "maxCoins": 220,
+    "biome": "abyss",
+    "chance": 0.005
+  },
+  {
+    "id": "white_whale",
+    "name": "白鲸",
+    "icon": "🐋",
+    "rarity": "legendary",
+    "minCoins": 180,
+    "maxCoins": 240,
+    "biome": "sea",
+    "chance": 0.003
+  },
+  {
+    "id": "phoenix_fish",
+    "name": "凤凰鱼",
+    "icon": "🔥",
+    "rarity": "legendary",
+    "minCoins": 200,
+    "maxCoins": 280,
+    "biome": "volcano",
+    "chance": 0.002
+  },
+  {
+    "id": "cthulhu_tentacle",
+    "name": "？？？触手？？？",
+    "icon": "🐙",
+    "rarity": "mythic",
+    "minCoins": 400,
+    "maxCoins": 600,
+    "biome": "void",
+    "chance": 0.001,
+    "special": "boss"
+  }
+]

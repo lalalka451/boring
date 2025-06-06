@@ -3,16 +3,17 @@ import { useGameStore } from '../store/gameStore';
 import { gameData } from '../data/gameData';
 
 const Sidebar: React.FC = () => {
-  const { 
-    playerName, 
-    setPlayerName, 
-    eraId, 
-    playthrough, 
-    globalMultiplier, 
+  const {
+    playerName,
+    setPlayerName,
+    eraId,
+    playthrough,
+    globalMultiplier,
     totalPlaytime,
     resources,
     unlockedResources,
-    formatNumber
+    formatNumber,
+    getTotalAssignedWorkers
   } = useGameStore();
 
   const [nameInput, setNameInput] = useState(playerName);
@@ -66,6 +67,9 @@ const Sidebar: React.FC = () => {
         </p>
         <p className="user-info">
           总人口: {formatNumber(resources.population?.amount || 0n)}
+        </p>
+        <p className="user-info">
+          空闲工人: {formatNumber(BigInt(Number(resources.population?.amount || 0n) - getTotalAssignedWorkers()))}
         </p>
       </div>
 

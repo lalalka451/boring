@@ -23,16 +23,23 @@
 ### 2.1 Primary Game Loop
 1. **Collect Resources** → Click buildings or wait for passive generation
 2. **Build Structures** → Spend resources to construct buildings
-3. **Optimize Production** → Assign workers and manage efficiency
-4. **Advance Eras** → Meet requirements to unlock new technologies
-5. **Prestige** → Reset progress for permanent bonuses
+3. **Assign Workers** → Use +/- buttons to optimize building efficiency
+4. **Manage Production** → Balance workforce allocation across buildings
+5. **Advance Eras** → Meet requirements to unlock new technologies
+6. **Prestige** → Reset progress for permanent bonuses
 
-### 2.2 Resource System
+### 2.2 Worker Management System (New Feature)
+- **Visual Interface**: Intuitive +/- buttons for worker assignment
+- **Efficiency Calculation**: Real-time production based on worker ratios
+- **Strategic Depth**: Balance workforce allocation for optimal output
+- **Per-Building Efficiency**: Each building instance calculates efficiency independently
+
+### 2.3 Resource System
 #### Basic Resources (Stone Age)
-- **Population** 👥: Workers for buildings
+- **Population** 👥: Workers for buildings (limited by housing capacity)
 - **Food** 🍞: Sustains population growth
-- **Wood** 🪵: Basic construction material
-- **Stone** 🪨: Durable construction material
+- **Wood** 🪵: Basic construction material (starts available)
+- **Stone** 🪨: Durable construction material (unlocked by Quarry)
 
 #### Advanced Resources (Later Eras)
 - **Bronze Age**: Copper, Tin, Bronze
@@ -41,17 +48,19 @@
 - **Information**: Silicon, AI Cores
 - **Space**: Antimatter, Warp Cores
 
-### 2.3 Building System
+### 2.4 Building System
 #### Building Categories
-1. **Production**: Generate resources over time
+1. **Production**: Generate resources over time (requires workers)
 2. **Housing**: Increase population capacity
 3. **Special**: Provide unique bonuses or effects
-4. **Clickable**: Generate resources when clicked
+4. **Clickable**: Generate resources when clicked (no workers needed)
 
 #### Building Mechanics
 - **Cost Scaling**: Exponential cost increase per building
-- **Worker Assignment**: Assign population to increase efficiency
+- **Worker Assignment**: Visual +/- interface for worker allocation
+- **Efficiency Calculation**: Production = Base × Worker Ratio × Building Count
 - **Unlock Requirements**: Era, resources, or other buildings needed
+- **Progressive Unlocking**: Stone unlocked by Quarry, Bronze by entering Bronze Age
 
 ## 3. Progression Systems
 

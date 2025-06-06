@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { GameState, ResourceSnapshot, BuildingInstance, TabType } from '../types/game';
+import { GameState, TabType } from '../types/game';
 import { gameData } from '../data/gameData';
 
 interface GameStore extends GameState {
@@ -16,7 +16,9 @@ interface GameStore extends GameState {
   tick: () => void;
   clickBuilding: (buildingId: string) => void;
   buildBuilding: (buildingId: string, quantity?: number) => boolean;
-  assignWorkers: (buildingId: string, amount: number) => boolean;
+  assignWorker: (buildingId: string, amount?: number) => boolean;
+  unassignWorker: (buildingId: string, amount?: number) => boolean;
+  getTotalAssignedWorkers: () => number;
 
   // System Actions
   saveGame: () => void;
@@ -113,7 +115,7 @@ export const useGameStore = create<GameStore>()(
           if (buildingData.production) {
             Object.entries(buildingData.production).forEach(([resourceId, amount]) => {
               if (newResources[resourceId]) {
-                const production = BigInt(Math.floor(Number(count) * amount * efficiency));
+                const production = BigInt(Math.floor(Number(count) * Number(amount) * efficiency));
                 newResources[resourceId].perSec += production;
               }
             });
@@ -123,7 +125,7 @@ export const useGameStore = create<GameStore>()(
           if (buildingData.consumption) {
             Object.entries(buildingData.consumption).forEach(([resourceId, amount]) => {
               if (newResources[resourceId]) {
-                const consumption = BigInt(Math.floor(Number(count) * amount * efficiency));
+                const consumption = BigInt(Math.floor(Number(count) * Number(amount) * efficiency));
                 newResources[resourceId].perSec -= consumption;
               }
             });
@@ -186,7 +188,7 @@ export const useGameStore = create<GameStore>()(
 
         Object.entries(buildingData.clickProduction).forEach(([resourceId, amount]) => {
           if (newResources[resourceId]) {
-            newResources[resourceId].amount += BigInt(amount);
+            newResources[resourceId].amount += BigInt(Number(amount));
           }
         });
 
@@ -263,6 +265,62 @@ export const useGameStore = create<GameStore>()(
         return true;
       },
 
+      // Worker Management
+      assignWorker: (buildingId: string, amount = 1) => {
+        const state = get();
+        const buildingState = state.buildings[buildingId];
+        const buildingData = gameData.buildings[buildingId];
+
+        if (!buildingState || !buildingData) return false;
+
+        const availableWorkers = state.resources.population.amount - BigInt(state.getTotalAssignedWorkers());
+        const maxCapacity = (buildingData.workerCapacity || 0) * Number(buildingState.count);
+        const currentWorkers = Number(buildingState.workers);
+        const canAssign = Math.min(Number(availableWorkers), amount, maxCapacity - currentWorkers);
+
+        if (canAssign <= 0) return false;
+
+        const newBuildings = { ...state.buildings };
+        newBuildings[buildingId] = {
+          ...buildingState,
+          workers: buildingState.workers + BigInt(canAssign)
+        };
+
+        set({ buildings: newBuildings });
+        get().addLogEntry(`👷 分配了 ${canAssign} 个工人到 ${buildingData.name}`);
+        return true;
+      },
+
+      unassignWorker: (buildingId: string, amount = 1) => {
+        const state = get();
+        const buildingState = state.buildings[buildingId];
+        const buildingData = gameData.buildings[buildingId];
+
+        if (!buildingState || !buildingData) return false;
+
+        const currentWorkers = Number(buildingState.workers);
+        const canUnassign = Math.min(amount, currentWorkers);
+
+        if (canUnassign <= 0) return false;
+
+        const newBuildings = { ...state.buildings };
+        newBuildings[buildingId] = {
+          ...buildingState,
+          workers: buildingState.workers - BigInt(canUnassign)
+        };
+
+        set({ buildings: newBuildings });
+        get().addLogEntry(`👷 从 ${buildingData.name} 撤回了 ${canUnassign} 个工人`);
+        return true;
+      },
+
+      getTotalAssignedWorkers: () => {
+        const state = get();
+        return Object.values(state.buildings).reduce((total, building) => {
+          return total + Number(building.workers);
+        }, 0);
+      },
+
       // System Actions
       saveGame: () => {
         set({ lastSave: Date.now() });
@@ -335,7 +393,7 @@ export const useGameStore = create<GameStore>()(
           let totalCost = 0;
           for (let i = 0; i < quantity; i++) {
             const buildingNumber = currentCount + i;
-            const multipliedCost = baseAmount * Math.pow(buildingData.costMultiplier, buildingNumber);
+            const multipliedCost = Number(baseAmount) * Math.pow(buildingData.costMultiplier, buildingNumber);
             totalCost += Math.floor(multipliedCost);
           }
           cost[resourceId] = totalCost;
@@ -395,13 +453,39 @@ export const useGameStore = create<GameStore>()(
       getBuildingEfficiency: (buildingId: string) => {
         const state = get();
         const buildingData = gameData.buildings[buildingId];
-        if (!buildingData.workerRequirement) return 1.0;
-
         const buildingState = state.buildings[buildingId];
+
+        if (!buildingData || !buildingState || buildingState.count === 0n) {
+          return 0.0; // No building data, state, or count means no efficiency
+        }
+
+        // Buildings that don't use workers operate at 100% efficiency
+        if (!buildingData.workerCapacity || buildingData.workerCapacity === 0) {
+          return 1.0;
+        }
+
         const workersAssigned = Number(buildingState.workers);
-        const workersRequired = buildingData.workerRequirement * Number(buildingState.count);
-        
-        return Math.min(1.0, workersAssigned / workersRequired);
+        if (workersAssigned === 0) {
+          return 0.0; // No workers = no production
+        }
+
+        const numBuildings = Number(buildingState.count);
+
+        // Case 1: Building has a specific workerRequirement for optimal operation per instance
+        if (buildingData.workerRequirement && buildingData.workerRequirement > 0) {
+          // Calculate average workers assigned per building instance
+          const avgWorkersPerInstance = workersAssigned / numBuildings;
+
+          // Efficiency is the ratio of average workers to optimal workers, capped at 1.0
+          return Math.min(1.0, avgWorkersPerInstance / buildingData.workerRequirement);
+        }
+        // Case 2: Building has workerCapacity but no specific workerRequirement
+        else {
+          const totalCapacityForGroup = buildingData.workerCapacity * numBuildings;
+          if (totalCapacityForGroup === 0) return 0.0;
+
+          return Math.min(1.0, workersAssigned / totalCapacityForGroup);
+        }
       },
 
       checkUnlocks: () => {

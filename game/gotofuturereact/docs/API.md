@@ -22,6 +22,11 @@ interface GameState {
   unlockedResources: Set<string>;
   statistics: GameStatistics;
 }
+
+interface BuildingInstance {
+  count: bigint;
+  workers: bigint;  // New: Worker assignment
+}
 ```
 
 #### Resource Management
@@ -51,6 +56,25 @@ const canBuild = useGameStore(state => state.canBuildBuilding('gathering_hut', 1
 
 // Calculate building cost
 const cost = useGameStore(state => state.calculateBuildingCost('gathering_hut', 1));
+```
+
+#### Worker Management (New)
+```typescript
+// Assign workers to a building
+const assignWorker = useGameStore(state => state.assignWorker);
+assignWorker('gathering_hut', 1); // Assign 1 worker
+
+// Unassign workers from a building
+const unassignWorker = useGameStore(state => state.unassignWorker);
+unassignWorker('gathering_hut', 1); // Remove 1 worker
+
+// Get total assigned workers
+const getTotalAssignedWorkers = useGameStore(state => state.getTotalAssignedWorkers);
+const totalWorkers = getTotalAssignedWorkers(); // Returns number
+
+// Get building efficiency
+const getBuildingEfficiency = useGameStore(state => state.getBuildingEfficiency);
+const efficiency = getBuildingEfficiency('gathering_hut'); // Returns 0.0 to 1.0
 ```
 
 #### Game Actions
@@ -118,6 +142,38 @@ interface MiniGameProps {
 <SlotMachine onClose={() => setActiveGame(null)} />
 ```
 
+## Data-Driven Architecture API
+
+### Data Loading
+```typescript
+// Load game data with validation
+import { getGameData } from '../data/dataLoader';
+const gameData = await getGameData(); // With caching and remote support
+
+// Validate data manually
+import { validateGameData } from '../data/schema';
+const validatedData = validateGameData(rawData);
+
+// Access static data (synchronous)
+import { gameData } from '../data/gameData';
+const currentEra = gameData.eras[eraId];
+```
+
+### Data Status
+```typescript
+// Check data loading status
+import { getDataStatus } from '../data/dataLoader';
+const status = getDataStatus();
+// Returns: { hasCachedData, lastLoadTime, cacheAge, isStale }
+
+// Force refresh remote data
+const freshData = await getGameData(true);
+
+// Clear cache for testing
+import { clearDataCache } from '../data/dataLoader';
+clearDataCache();
+```
+
 ## Game Data API
 
 ### Era System
@@ -170,15 +226,21 @@ interface BuildingData {
   unlockRequirements: Requirements;
   production?: Record<string, number>;
   consumption?: Record<string, number>;
-  workerCapacity?: number;
-  workerRequirement?: number;
+  workerCapacity?: number;        // Maximum workers per building
+  workerRequirement?: number;     // Optimal workers per building
   populationCapacity?: number;
   clickable?: boolean;
   clickProduction?: Record<string, number>;
+  specialEffect?: string;         // Special effects like "unlock_resource"
 }
 
 // Access building data
 const treeData = gameData.buildings.tree;
+
+// Worker-related building properties
+const gatheringHut = gameData.buildings.gathering_hut;
+console.log(gatheringHut.workerCapacity);    // 2 (max workers per building)
+console.log(gatheringHut.workerRequirement); // 1 (optimal workers per building)
 ```
 
 ## Utility Functions

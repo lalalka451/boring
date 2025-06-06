@@ -5,12 +5,12 @@ import resourcesData from './resources.json';
 import buildingsData from './buildings.json';
 import achievementsData from './achievements.json';
 
-// Raw data from JSON files
+// Raw data from JSON files with proper typing
 const rawGameData = {
-  eras: erasData,
-  resources: resourcesData,
-  buildings: buildingsData,
-  achievements: achievementsData
+  eras: erasData as any,
+  resources: resourcesData as any,
+  buildings: buildingsData as any,
+  achievements: achievementsData as any
 };
 
 // Validate and export game data

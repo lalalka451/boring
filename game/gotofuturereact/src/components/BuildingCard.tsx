@@ -1,50 +1,80 @@
 import React from 'react';
-import { useGameStore } from '../store/gameStore';
+import { useGameStore } from '../store';
 import { gameData } from '../data/gameData';
 import { BuildingData } from '../types/game';
+import { shallow } from 'zustand/shallow';
 import './BuildingCard.css';
 
 interface BuildingCardProps {
-  building: BuildingData;
+  buildingId: string;
 }
 
-const BuildingCard: React.FC<BuildingCardProps> = ({ building }) => {
-  const { 
-    buildings, 
-    clickBuilding, 
-    buildBuilding, 
-    canBuildBuilding, 
-    calculateBuildingCost, 
-    canAfford, 
-    formatNumber 
-  } = useGameStore();
+const BuildingCard: React.FC<BuildingCardProps> = React.memo(({ buildingId }) => {
+  const {
+    getBuildingState,
+    clickBuilding,
+    buildBuilding,
+    canBuildBuilding,
+    calculateBuildingCost,
+    canAfford,
+    formatNumber,
+    assignWorker,
+    unassignWorker,
+    getResource
+  } = useGameStore(state => ({
+    getBuildingState: (id: string) => state.buildings[id],
+    clickBuilding: state.clickBuilding,
+    buildBuilding: state.buildBuilding,
+    canBuildBuilding: state.canBuildBuilding,
+    calculateBuildingCost: state.calculateBuildingCost,
+    canAfford: state.canAfford,
+    formatNumber: state.formatNumber,
+    assignWorker: state.assignWorker,
+    unassignWorker: state.unassignWorker,
+    getResource: (id: string) => state.resources[id]
+  }), shallow);
 
-  const buildingState = buildings[building.id];
+  const building = gameData.buildings[buildingId];
+  const buildingState = getBuildingState(buildingId);
+
+  if (!building) return null;
+
   const count = buildingState ? formatNumber(buildingState.count) : '0';
   const maxCount = building.maxCount === 1000000 ? '∞' : formatNumber(BigInt(building.maxCount));
 
-  const cost = calculateBuildingCost(building.id, 1);
+  const cost = React.useMemo(() => calculateBuildingCost(buildingId, 1), [calculateBuildingCost, buildingId]);
   const affordable = canAfford(cost);
-  const canBuild = canBuildBuilding(building.id, 1);
+  const canBuild = canBuildBuilding(buildingId, 1);
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = React.useCallback((e: React.MouseEvent) => {
     if (e.ctrlKey && canBuild) {
-      // Ctrl+click to build
-      buildBuilding(building.id, 1);
+      buildBuilding(buildingId, 1);
     } else if (building.clickable) {
-      // Regular click for clickable buildings
-      clickBuilding(building.id);
+      clickBuilding(buildingId);
     }
-  };
+  }, [buildingId, canBuild, building?.clickable, buildBuilding, clickBuilding]);
 
-  const handleBuild = (e: React.MouseEvent) => {
+  const handleBuild = React.useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
-    buildBuilding(building.id, 1);
-  };
+    buildBuilding(buildingId, 1);
+  }, [buildingId, buildBuilding]);
 
-  const costEntries = Object.entries(cost);
+  const costEntries = React.useMemo(() => Object.entries(cost), [cost]);
   const hasProduction = building.production && Object.keys(building.production).length > 0;
   const hasConsumption = building.consumption && Object.keys(building.consumption).length > 0;
+
+  const populationResource = getResource('population');
+  const populationAmount = populationResource ? populationResource.amount : 0n;
+
+  const handleUnassignWorker = React.useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    unassignWorker(buildingId, 1);
+  }, [buildingId, unassignWorker]);
+
+  const handleAssignWorker = React.useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    assignWorker(buildingId, 1);
+  }, [buildingId, assignWorker]);
 
   return (
     <div 
@@ -124,15 +154,36 @@ const BuildingCard: React.FC<BuildingCardProps> = ({ building }) => {
         </div>
       )}
 
-      {building.workerCapacity && building.workerCapacity > 0 && (
+      {building.workerCapacity && building.workerCapacity > 0 && buildingState && Number(buildingState.count) > 0 && (
         <div className="building-workers">
-          <span className="worker-info">
-            👷 工人容量: {building.workerCapacity * Number(buildingState?.count || 0n)}
-          </span>
+          <div className="worker-info">
+            👷 工人: {formatNumber(buildingState.workers)}/{building.workerCapacity * Number(buildingState.count)}
+          </div>
+          <div className="worker-controls">
+            <button
+              className="worker-btn"
+              onClick={handleUnassignWorker}
+              disabled={Number(buildingState.workers) === 0}
+              title="撤回1个工人"
+            >
+              ➖
+            </button>
+            <button
+              className="worker-btn"
+              onClick={handleAssignWorker}
+              disabled={
+                Number(buildingState.workers) >= building.workerCapacity * Number(buildingState.count) ||
+                populationAmount <= 0n
+              }
+              title="分配1个工人"
+            >
+              ➕
+            </button>
+          </div>
           {building.workerRequirement && (
-            <span className="worker-requirement">
-              (需要 {building.workerRequirement}/建筑)
-            </span>
+            <div className="worker-requirement">
+              (建议 {building.workerRequirement}/建筑)
+            </div>
           )}
         </div>
       )}
@@ -148,6 +199,6 @@ const BuildingCard: React.FC<BuildingCardProps> = ({ building }) => {
       )}
     </div>
   );
-};
+});
 
 export default BuildingCard;

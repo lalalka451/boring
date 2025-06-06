@@ -7,15 +7,17 @@
 - **Language**: TypeScript 5.2.2
 - **Build Tool**: Vite 5.0.8
 - **State Management**: Zustand 4.4.7
+- **Data Validation**: Zod 3.22.4
 - **Styling**: CSS3 with Grid/Flexbox
 - **Icons**: Unicode Emojis
 - **Package Manager**: npm
 
 ### 1.2 Architecture Pattern
-- **Pattern**: Component-Based Architecture with Centralized State
-- **Data Flow**: Unidirectional (Zustand → Components)
+- **Pattern**: Data-Driven Component Architecture with Centralized State
+- **Data Flow**: JSON Config → Validation → Zustand → Components
 - **Persistence**: Browser localStorage via Zustand persist
 - **Modularity**: Feature-based component organization
+- **Data Management**: JSON files with Zod schema validation
 
 ### 1.3 Browser Requirements
 - **JavaScript**: ES2020+ (BigInt support required)
@@ -32,17 +34,24 @@ src/
 │   ├── tabs/            # Tab-specific components
 │   ├── modals/          # Modal dialogs
 │   ├── minigames/       # Mini-game components
-│   ├── BuildingCard.tsx # Building display component
+│   ├── BuildingCard.tsx # Building display with worker management
 │   ├── Header.tsx       # Top navigation
-│   ├── Sidebar.tsx      # Resource display
+│   ├── Sidebar.tsx      # Resource display and worker info
 │   ├── MainContent.tsx  # Main game area
 │   └── ActivityLog.tsx  # Event logging
 ├── store/               # State management
-│   └── gameStore.ts     # Zustand store
-├── data/                # Game configuration
-│   └── gameData.ts      # Static game data
+│   └── gameStore.ts     # Zustand store with worker logic
+├── data/                # Data-driven architecture
+│   ├── eras.json        # Era definitions and requirements
+│   ├── resources.json   # Resource properties and unlock conditions
+│   ├── buildings.json   # Building configurations and worker requirements
+│   ├── achievements.json # Achievement definitions and rewards
+│   ├── gameData.ts      # Data loader with validation
+│   ├── schema.ts        # Zod validation schemas
+│   └── dataLoader.ts    # Advanced data loading with remote support
 ├── types/               # TypeScript definitions
-│   └── game.ts          # Game-specific types
+│   ├── game.ts          # Core game types
+│   └── fish.ts          # Mini-game specific types
 ├── App.tsx              # Root component
 ├── App.css              # Global styles
 └── main.tsx             # Application entry point
@@ -50,9 +59,9 @@ src/
 
 ### 2.2 Data Flow Architecture
 ```
-Game Data (Static) → Zustand Store → React Components → User Interface
-                           ↑                ↓
-                    localStorage ←→ User Actions
+JSON Files → Zod Validation → Game Data → Zustand Store → React Components → UI
+     ↓              ↓             ↓            ↑                ↓
+Remote Data → Schema Check → Type Safety → localStorage ←→ User Actions
 ```
 
 ## 3. State Management
@@ -94,13 +103,33 @@ interface GameStore extends GameState {
 ```typescript
 tick() {
   1. Calculate time delta
-  2. Update resource production
-  3. Apply consumption
-  4. Handle population dynamics
-  5. Check unlock conditions
-  6. Trigger era advancement
-  7. Update UI state
+  2. Calculate building efficiency (based on workers)
+  3. Update resource production (efficiency-adjusted)
+  4. Apply consumption
+  5. Handle population dynamics
+  6. Check unlock conditions
+  7. Trigger era advancement
+  8. Update UI state
 }
+```
+
+### 4.2 Worker Management System
+```typescript
+// Efficiency calculation per building type
+getBuildingEfficiency(buildingId: string): number {
+  const workersAssigned = buildingState.workers;
+  const numBuildings = buildingState.count;
+  const avgWorkersPerBuilding = workersAssigned / numBuildings;
+
+  if (buildingData.workerRequirement) {
+    return Math.min(1.0, avgWorkersPerBuilding / buildingData.workerRequirement);
+  } else {
+    return Math.min(1.0, workersAssigned / totalCapacity);
+  }
+}
+
+// Production calculation with efficiency
+production = baseProduction × buildingCount × efficiency
 ```
 
 ### 4.2 BigInt Mathematics

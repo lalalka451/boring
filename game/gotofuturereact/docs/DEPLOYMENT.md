@@ -25,11 +25,12 @@ npm run dev
 
 ### Development Scripts
 ```bash
-npm run dev      # Start development server with hot reload
-npm run build    # Build for production
-npm run preview  # Preview production build locally
-npm run lint     # Run ESLint
-npm run type-check # TypeScript type checking
+npm run dev              # Start development server with hot reload
+npm run build           # Build for production
+npm run preview         # Preview production build locally
+npm run type-check      # TypeScript type checking
+npm run export-sheets   # Export game data from Google Sheets
+npm run validate-data   # Validate JSON data format and integrity
 ```
 
 ## Production Build
@@ -262,10 +263,15 @@ services:
 ```bash
 # .env.production
 VITE_APP_NAME=GoToFuture
-VITE_APP_VERSION=1.0.0
-VITE_API_URL=https://api.gotofuture.com
+VITE_APP_VERSION=2.0.0
+VITE_DATA_URL=https://cdn.example.com/gamedata
+VITE_DATA_VERSION=v1
 VITE_ANALYTICS_ID=GA_MEASUREMENT_ID
 VITE_SENTRY_DSN=https://your-sentry-dsn
+
+# Google Sheets Integration (optional)
+GOOGLE_SHEETS_API_KEY=your_api_key
+GOOGLE_SHEETS_ID=your_sheet_id
 ```
 
 ### Build-time Configuration

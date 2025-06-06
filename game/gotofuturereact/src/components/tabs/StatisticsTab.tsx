@@ -43,7 +43,7 @@ const StatisticsTab: React.FC = () => {
       stats: [
         { name: '总建筑数', value: totalBuildings.toString() },
         { name: '已解锁建筑', value: Object.keys(buildings).length.toString() },
-        { name: '最高建筑数量', value: formatNumber(Math.max(...Object.values(buildings).map(b => Number(b.count)))) }
+        { name: '最高建筑数量', value: formatNumber(BigInt(Math.max(...Object.values(buildings).map(b => Number(b.count))))) }
       ]
     },
     {
