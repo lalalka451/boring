@@ -1,0 +1,223 @@
+{
+  "first_tree": {
+    "id": "first_tree",
+    "name": "第一棵树",
+    "description": "点击人树获得第一份木材",
+    "icon": "🌳",
+    "category": "basic",
+    "requirements": {
+      "resources": {
+        "wood": 1
+      }
+    },
+    "reward": {
+      "type": "none"
+    }
+  },
+  "first_building": {
+    "id": "first_building",
+    "name": "建筑师",
+    "description": "建造第一个建筑",
+    "icon": "🏗️",
+    "category": "basic",
+    "requirements": {
+      "buildings_built": 1
+    },
+    "reward": {
+      "type": "none"
+    }
+  },
+  "population_100": {
+    "id": "population_100",
+    "name": "小村庄",
+    "description": "人口达到100",
+    "icon": "🏘️",
+    "category": "population",
+    "requirements": {
+      "resources": {
+        "population": 100
+      }
+    },
+    "reward": {
+      "type": "resource",
+      "resource": "food",
+      "amount": 500
+    }
+  },
+  "population_1000": {
+    "id": "population_1000",
+    "name": "繁荣城镇",
+    "description": "人口达到1000",
+    "icon": "🏙️",
+    "category": "population",
+    "requirements": {
+      "resources": {
+        "population": 1000
+      }
+    },
+    "reward": {
+      "type": "resource",
+      "resource": "wood",
+      "amount": 5000
+    }
+  },
+  "bronze_age": {
+    "id": "bronze_age",
+    "name": "青铜时代",
+    "description": "进入青铜时代",
+    "icon": "🔥",
+    "category": "era",
+    "requirements": {
+      "era": "bronze_age"
+    },
+    "reward": {
+      "type": "multiplier",
+      "value": 0.1
+    }
+  },
+  "iron_age": {
+    "id": "iron_age",
+    "name": "铁器时代",
+    "description": "进入铁器时代",
+    "icon": "⚔️",
+    "category": "era",
+    "requirements": {
+      "era": "iron_age"
+    },
+    "reward": {
+      "type": "multiplier",
+      "value": 0.2
+    }
+  },
+  "industrial_age": {
+    "id": "industrial_age",
+    "name": "工业革命",
+    "description": "进入工业时代",
+    "icon": "🏭",
+    "category": "era",
+    "requirements": {
+      "era": "industrial_age"
+    },
+    "reward": {
+      "type": "multiplier",
+      "value": 0.5
+    }
+  },
+  "information_age": {
+    "id": "information_age",
+    "name": "信息革命",
+    "description": "进入信息时代",
+    "icon": "💻",
+    "category": "era",
+    "requirements": {
+      "era": "information_age"
+    },
+    "reward": {
+      "type": "multiplier",
+      "value": 1.0
+    }
+  },
+  "space_age": {
+    "id": "space_age",
+    "name": "太空征服者",
+    "description": "进入太空时代",
+    "icon": "🚀",
+    "category": "era",
+    "requirements": {
+      "era": "space_age"
+    },
+    "reward": {
+      "type": "multiplier",
+      "value": 2.0
+    }
+  },
+  "multidimensional_age": {
+    "id": "multidimensional_age",
+    "name": "多维存在",
+    "description": "进入多维时代",
+    "icon": "🌌",
+    "category": "era",
+    "requirements": {
+      "era": "multidimensional_age"
+    },
+    "reward": {
+      "type": "multiplier",
+      "value": 5.0
+    }
+  },
+  "first_prestige": {
+    "id": "first_prestige",
+    "name": "重生者",
+    "description": "完成第一次重生",
+    "icon": "🌟",
+    "category": "prestige",
+    "requirements": {
+      "playthrough": 2
+    },
+    "reward": {
+      "type": "multiplier",
+      "value": 0.5
+    }
+  },
+  "wood_million": {
+    "id": "wood_million",
+    "name": "伐木大师",
+    "description": "累计生产100万木材",
+    "icon": "🪓",
+    "category": "production",
+    "requirements": {
+      "total_produced": {
+        "wood": 1000000
+      }
+    },
+    "reward": {
+      "type": "multiplier",
+      "value": 0.2
+    }
+  },
+  "food_million": {
+    "id": "food_million",
+    "name": "农业专家",
+    "description": "累计生产100万食物",
+    "icon": "🌾",
+    "category": "production",
+    "requirements": {
+      "total_produced": {
+        "food": 1000000
+      }
+    },
+    "reward": {
+      "type": "multiplier",
+      "value": 0.2
+    }
+  },
+  "buildings_100": {
+    "id": "buildings_100",
+    "name": "城市规划师",
+    "description": "建造100个建筑",
+    "icon": "🏗️",
+    "category": "building",
+    "requirements": {
+      "total_buildings": 100
+    },
+    "reward": {
+      "type": "resource",
+      "resource": "stone",
+      "amount": 10000
+    }
+  },
+  "idle_master": {
+    "id": "idle_master",
+    "name": "放置大师",
+    "description": "游戏时间达到24小时",
+    "icon": "⏰",
+    "category": "time",
+    "requirements": {
+      "playtime": 86400
+    },
+    "reward": {
+      "type": "multiplier",
+      "value": 1.0
+    }
+  }
+}

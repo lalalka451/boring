@@ -48,7 +48,7 @@ class Ball {
     }
 
     // Floor – stop & collect
-    if (this.y > H - BALL_RADIUS) {
+    if (this.y >= H - BALL_RADIUS) {
       this.active = false;
       this.y = H - BALL_RADIUS;
     }
@@ -112,7 +112,7 @@ class Brick {
 // Game state
 let balls = [];
 let bricks = [];
-let launchPoint = { x: W / 2, y: H - BALL_RADIUS };
+let launchPoint = { x: W / 2, y: H - BALL_RADIUS - 10 }; // Move launch point up a bit
 let aimVector = null;
 let state = 'aim'; // 'aim', 'fly', 'roundEnd', 'gameOver'
 let totalBallsCollected = 1; // Start with 1 ball
@@ -132,7 +132,7 @@ canvas.addEventListener('mousedown', e => {
   const dy = pos.y - launchPoint.y;
   const len = Math.hypot(dx, dy);
 
-  if (len > 10) { // Minimum distance to shoot
+  if (len > 10 && dy < 0) { // Minimum distance and must aim upward
     const shootVector = { x: dx / len, y: dy / len };
     launchVolley(shootVector, totalBallsCollected);
     state = 'fly';
@@ -149,7 +149,7 @@ canvas.addEventListener('mousemove', e => {
   const dy = currentMousePos.y - launchPoint.y;
   const len = Math.hypot(dx, dy);
 
-  if (len > 10) { // Minimum distance to show aim line
+  if (len > 10 && dy < 0) { // Minimum distance and must aim upward
     aimVector = { x: dx / len, y: dy / len };
   } else {
     aimVector = null;
@@ -172,7 +172,7 @@ canvas.addEventListener('touchstart', e => {
   const dy = pos.y - launchPoint.y;
   const len = Math.hypot(dx, dy);
 
-  if (len > 10) {
+  if (len > 10 && dy < 0) { // Must aim upward
     const shootVector = { x: dx / len, y: dy / len };
     launchVolley(shootVector, totalBallsCollected);
     state = 'fly';
@@ -191,7 +191,7 @@ canvas.addEventListener('touchmove', e => {
   const dy = currentMousePos.y - launchPoint.y;
   const len = Math.hypot(dx, dy);
 
-  if (len > 10) {
+  if (len > 10 && dy < 0) { // Must aim upward
     aimVector = { x: dx / len, y: dy / len };
   } else {
     aimVector = null;
@@ -271,7 +271,8 @@ function update(dt) {
   if (state === 'fly') {
     balls.forEach(b => b.update(dt));
     bricks.forEach(br => checkCollision(br));
-    if (balls.every(b => !b.active)) { // End of volley
+
+    if (balls.length > 0 && balls.every(b => !b.active)) { // End of volley
       balls = []; // Collected
       combo = 0; // Reset combo when volley ends
       UIcombo.textContent = combo;

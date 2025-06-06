@@ -1,0 +1,38 @@
+{
+  "name": "tetris-game",
+  "version": "1.0.0",
+  "description": "A faithful recreation of the classic Tetris game with modern features",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "python -m http.server 8000",
+    "dev": "python -m http.server 8000",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "tetris",
+    "game",
+    "puzzle",
+    "blocks",
+    "html5",
+    "canvas",
+    "javascript",
+    "classic",
+    "arcade"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/tetris-game.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/tetris-game/issues"
+  },
+  "homepage": "https://github.com/yourusername/tetris-game#readme",
+  "devDependencies": {},
+  "dependencies": {},
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}

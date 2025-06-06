@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoToFuture - 飞向未来</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="nav-tabs">
+            <a href="#" class="nav-tab">公告</a>
+            <a href="#" class="nav-tab">手动存档</a>
+            <a href="#" class="nav-tab">存档列表</a>
+            <a href="#" class="nav-tab">排行榜</a>
+            <a href="#" class="nav-tab">交流群</a>
+            <a href="#" class="nav-tab">站点</a>
+            <a href="#" class="nav-tab active">太空市 D</a>
+        </nav>
+        <div class="header-right">
+            <span class="ping">ping: 198ms</span>
+            <div class="search-box">
+                <input type="text" placeholder="搜索">
+            </div>
+            <div class="user-avatar">V</div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar-left">
+            <div class="user-profile">
+                <div class="avatar-large" id="player-avatar">V</div>
+                <div class="player-name-section">
+                    <input type="text" id="player-name-input" value="Vigour" maxlength="20" placeholder="输入玩家名称">
+                    <button id="update-name-btn" class="update-name-btn">✓</button>
+                </div>
+                <p class="user-info" id="era-info">🗿 石器时代 - 第1周目</p>
+                <p class="join-date" id="playtime-info">游戏时间: 0h 0m</p>
+                <p class="connection" id="multiplier-info">全局倍率: 1.00x</p>
+                <p class="visitors" id="population-info">总人口: 10</p>
+            </div>
+
+            <div class="resources">
+                <h4>资源</h4>
+                <div class="resource-item">
+                    <span class="resource-name">人口</span>
+                    <span class="resource-value">29/50/70/0001</span>
+                </div>
+                <div class="resource-item">
+                    <span class="resource-name">食物</span>
+                    <span class="resource-value">649,021/1,000k +474 每秒</span>
+                </div>
+                <div class="resource-item">
+                    <span class="resource-name">木材</span>
+                    <span class="resource-value">246,684/1,500,000t +75 每秒</span>
+                </div>
+                <div class="resource-item">
+                    <span class="resource-name">石头</span>
+                    <span class="resource-value">500,000t/500,000t +75 每秒</span>
+                </div>
+                <div class="resource-item">
+                    <span class="resource-name">黏土</span>
+                    <span class="resource-value">12 E</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-tabs">
+                <button class="tab-btn active">建筑</button>
+                <button class="tab-btn">迷你游戏</button>
+                <button class="tab-btn">成就</button>
+                <button class="tab-btn">统计</button>
+            </div>
+
+            <div class="game-info">
+                <div class="era-info">
+                    <span id="current-era">石器时代 🗿</span>
+                    <span id="playthrough">第1周目</span>
+                </div>
+                <div class="controls">
+                    <button id="save-btn" class="control-btn">💾 保存</button>
+                    <button id="prestige-btn" class="control-btn" disabled>🌟 重生</button>
+                    <button id="reset-btn" class="control-btn reset-btn">🔄 重置</button>
+                </div>
+            </div>
+
+            <div class="instructions">
+                <p>💡 <strong>操作提示:</strong> 点击建筑卡片进行交互，Ctrl+点击建造建筑，Ctrl+S保存游戏</p>
+            </div>
+
+            <div class="stats-grid">
+                <!-- Buildings will be dynamically populated by JavaScript -->
+                <div class="loading-message">
+                    <p>🔄 加载游戏数据中...</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="sidebar-right">
+            <div class="activity-log">
+                <h4>日志</h4>
+                <div class="log-entry">
+                    <div class="log-time">初始化你好!</div>
+                    <div class="log-content">委员公众号："太阳未来的思维游戏攻略 64#: 739347012"</div>
+                    <div class="log-meta">1T个色 - 作者是工作 - 有新闻</div>
+                </div>
+                
+                <div class="log-entry">
+                    <div class="log-content">本次更新: 完全金全新移动新商会议题关切功能</div>
+                </div>
+                
+                <div class="log-entry">
+                    <div class="log-content">你做了一个🍃 你拿了一个的商品并拿了71个木材</div>
+                    <div class="log-meta">[详情] +1</div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="minigames.js"></script>
+</body>
+</html>

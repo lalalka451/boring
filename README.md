@@ -1,3 +1,0 @@
-# Boring
-
-A simple repository.
