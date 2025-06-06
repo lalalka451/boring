@@ -258,7 +258,7 @@ class GameEngine {
 
             achievements: new Set(),
             unlockedBuildings: new Set(['tree']),
-            unlockedResources: new Set(['population', 'food', 'wood', 'stone']),
+            unlockedResources: new Set(['population', 'food', 'wood', 'stone', 'genius_coins']),
 
             statistics: {
                 totalResourcesProduced: {},
