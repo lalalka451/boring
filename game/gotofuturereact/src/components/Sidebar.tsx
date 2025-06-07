@@ -1,20 +1,14 @@
 import React, { useState } from 'react';
-import { useGameStore } from '../store/gameStore';
+import { useGameState, useUnlockedResources, useFormatters } from '../hooks/useGameEngine';
 import { gameData } from '../data/gameData';
 
 const Sidebar: React.FC = () => {
-  const {
-    playerName,
-    setPlayerName,
-    eraId,
-    playthrough,
-    globalMultiplier,
-    totalPlaytime,
-    resources,
-    unlockedResources,
-    formatNumber,
-    getTotalAssignedWorkers
-  } = useGameStore();
+  const gameState = useGameState();
+  const unlockedResources = useUnlockedResources();
+  const { formatNumber, formatTime } = useFormatters();
+
+  const playerName = '文明建造者'; // Default for now
+  const setPlayerName = (name: string) => {}; // Placeholder
 
   const [nameInput, setNameInput] = useState(playerName);
 

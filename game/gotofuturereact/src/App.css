@@ -424,3 +424,80 @@ body {
     justify-content: center;
   }
 }
+
+/* OOP Demo Styles */
+.app {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) !important;
+  color: #ffffff !important;
+}
+
+.header {
+  background: rgba(0, 0, 0, 0.3) !important;
+  padding: 20px !important;
+  text-align: center !important;
+  border-bottom: 2px solid #3498db !important;
+  color: white !important;
+}
+
+.header h1 {
+  margin: 0 !important;
+  font-size: 2rem !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+  color: white !important;
+}
+
+.header p {
+  margin: 10px 0 0 0 !important;
+  color: #bdc3c7 !important;
+}
+
+.sidebar {
+  background: rgba(0, 0, 0, 0.2) !important;
+  border-right: 1px solid #3498db !important;
+  color: white !important;
+}
+
+.main-content {
+  background: rgba(0, 0, 0, 0.1) !important;
+  color: white !important;
+}
+
+.activity-log {
+  background: rgba(0, 0, 0, 0.2) !important;
+  border-left: 1px solid #3498db !important;
+  color: white !important;
+}
+
+.building-card {
+  background: rgba(52, 152, 219, 0.2) !important;
+  border: 2px solid #3498db !important;
+  border-radius: 8px !important;
+  padding: 15px !important;
+  margin: 10px 0 !important;
+  color: white !important;
+}
+
+.building-card h4 {
+  color: white !important;
+  margin-bottom: 10px !important;
+}
+
+.building-card p {
+  color: #bdc3c7 !important;
+  margin-bottom: 15px !important;
+}
+
+.building-card button {
+  background: #27ae60 !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px 20px !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  font-size: 1rem !important;
+  transition: background 0.3s ease !important;
+}
+
+.building-card button:hover {
+  background: #2ecc71 !important;
+}

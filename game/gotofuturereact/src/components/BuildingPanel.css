@@ -1,0 +1,309 @@
+/* Building Panel Styles - OOP Architecture */
+
+.building-panel {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  border: 2px solid #3498db;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 8px;
+  min-width: 280px;
+  max-width: 320px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.building-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+  border-color: #5dade2;
+}
+
+.building-panel.clickable {
+  border-color: #f39c12;
+  background: linear-gradient(135deg, #d35400 0%, #e67e22 100%);
+}
+
+.building-panel.clickable:hover {
+  border-color: #f1c40f;
+  box-shadow: 0 8px 25px rgba(243, 156, 18, 0.4);
+}
+
+.building-panel.buildable {
+  border-color: #27ae60;
+}
+
+.building-panel.buildable:hover {
+  border-color: #2ecc71;
+  box-shadow: 0 8px 25px rgba(46, 204, 113, 0.3);
+}
+
+/* Header Section */
+.building-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+.building-icon {
+  font-size: 2.5rem;
+  line-height: 1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.building-info {
+  flex: 1;
+}
+
+.building-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ecf0f1;
+  margin-bottom: 4px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.building-count {
+  font-size: 0.9rem;
+  color: #bdc3c7;
+  font-family: 'Courier New', monospace;
+}
+
+/* Cost Section */
+.building-cost {
+  margin-bottom: 12px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+.cost-label {
+  font-size: 0.8rem;
+  color: #95a5a6;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.cost-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cost-item {
+  background: rgba(52, 73, 94, 0.8);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: #ecf0f1;
+  border: 1px solid rgba(149, 165, 166, 0.3);
+}
+
+/* Production Section */
+.building-production,
+.building-consumption {
+  margin-bottom: 12px;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.building-production {
+  background: rgba(39, 174, 96, 0.2);
+  border: 1px solid rgba(39, 174, 96, 0.4);
+}
+
+.building-consumption {
+  background: rgba(231, 76, 60, 0.2);
+  border: 1px solid rgba(231, 76, 60, 0.4);
+}
+
+.production-label,
+.consumption-label {
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.production-label {
+  color: #2ecc71;
+}
+
+.consumption-label {
+  color: #e74c3c;
+}
+
+.production-items,
+.consumption-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.production-item,
+.consumption-item {
+  padding: 3px 6px;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  font-family: 'Courier New', monospace;
+}
+
+.production-item {
+  background: rgba(39, 174, 96, 0.3);
+  color: #2ecc71;
+}
+
+.consumption-item {
+  background: rgba(231, 76, 60, 0.3);
+  color: #e74c3c;
+}
+
+/* Worker Management */
+.building-workers {
+  margin-bottom: 12px;
+  padding: 10px;
+  background: rgba(155, 89, 182, 0.2);
+  border: 1px solid rgba(155, 89, 182, 0.4);
+  border-radius: 6px;
+}
+
+.worker-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.worker-status {
+  font-size: 0.85rem;
+  color: #ecf0f1;
+  font-family: 'Courier New', monospace;
+}
+
+.worker-efficiency {
+  font-size: 0.8rem;
+  color: #9b59b6;
+  font-weight: bold;
+}
+
+.worker-controls {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.worker-btn {
+  background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 1.2rem;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.worker-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+  transform: scale(1.1);
+}
+
+.worker-btn:disabled {
+  background: #7f8c8d;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Actions Section */
+.building-actions {
+  margin-bottom: 12px;
+}
+
+.build-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.build-btn.enabled {
+  background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+}
+
+.build-btn.enabled:hover {
+  background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4);
+}
+
+.build-btn.disabled {
+  background: #7f8c8d;
+  color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+/* Meta Information */
+.building-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  color: #95a5a6;
+  border-top: 1px solid rgba(149, 165, 166, 0.3);
+  padding-top: 8px;
+}
+
+.building-era {
+  background: rgba(52, 152, 219, 0.3);
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid rgba(52, 152, 219, 0.5);
+}
+
+.building-category {
+  background: rgba(155, 89, 182, 0.3);
+  padding: 2px 6px;
+  border-radius: 3px;
+  border: 1px solid rgba(155, 89, 182, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .building-panel {
+    min-width: 250px;
+    max-width: 280px;
+    margin: 6px;
+    padding: 12px;
+  }
+
+  .building-icon {
+    font-size: 2rem;
+  }
+
+  .building-name {
+    font-size: 1.1rem;
+  }
+
+  .worker-controls {
+    gap: 6px;
+  }
+
+  .worker-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+}

@@ -1,17 +1,14 @@
 import React from 'react';
-import { useGameStore } from '../../store';
-import { gameData } from '../../data/gameData';
-import BuildingCard from '../BuildingCard';
-import { shallow } from 'zustand/shallow';
+import { useUnlockedBuildings } from '../../hooks/useGameEngine';
+import BuildingPanel from '../BuildingPanel';
 import './BuildingsTab.css';
 
 const BuildingsTab: React.FC = () => {
-  const unlockedBuildingIds = useGameStore(state => state.unlockedBuildings, shallow);
+  const unlockedBuildings = useUnlockedBuildings();
 
   const unlockedBuildingsList = React.useMemo(() => {
-    return Array.from(unlockedBuildingIds)
-      .map(buildingId => gameData.buildings[buildingId])
-      .filter(Boolean)
+    return unlockedBuildings
+      .map(building => building.data)
       .sort((a, b) => {
         // Sort by era, then by category
         const eraOrder = ['stone_age', 'bronze_age', 'iron_age', 'industrial_age', 'information_age', 'space_age', 'multidimensional_age'];
@@ -20,7 +17,7 @@ const BuildingsTab: React.FC = () => {
 
         return a.category.localeCompare(b.category);
       });
-  }, [unlockedBuildingIds]);
+  }, [unlockedBuildings]);
 
   if (unlockedBuildingsList.length === 0) {
     return (
@@ -36,7 +33,7 @@ const BuildingsTab: React.FC = () => {
     <div className="buildings-tab">
       <div className="buildings-grid">
         {unlockedBuildingsList.map(building => (
-          <BuildingCard key={building.id} buildingId={building.id} />
+          <BuildingPanel key={building.id} buildingId={building.id} />
         ))}
       </div>
     </div>

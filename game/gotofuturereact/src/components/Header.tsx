@@ -1,8 +1,9 @@
 import React from 'react';
-import { useGameStore } from '../store/gameStore';
+import { useGameState } from '../hooks/useGameEngine';
 
 const Header: React.FC = () => {
-  const { playerName } = useGameStore();
+  const gameState = useGameState();
+  const playerName = '文明建造者'; // Default player name
 
   return (
     <header className="header">

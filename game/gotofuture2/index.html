@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rebirth Curve Sandbox – Extended</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head>
+<body class="bg-gray-100 flex flex-col items-center p-6 gap-6 min-h-screen">
+  <h1 class="text-3xl font-bold mb-2">Rebirth Difficulty Curve – Extended View</h1>
+  <p class="text-sm text-gray-600 mb-4">Drag the sliders to see how different parameters shape the curve and key stats for each rebirth.</p>
+
+  <!-- Controls -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-3xl">
+    <!-- R slider -->
+    <div class="bg-white rounded-2xl shadow p-4 flex flex-col gap-2">
+      <label class="font-semibold" for="rRange">Time‑growth&nbsp;factor R (1.1 – 1.5):
+        <span id="rVal" class="text-indigo-600 font-bold"></span></label>
+      <input id="rRange" type="range" min="1.1" max="1.5" step="0.01" class="w-full">
+    </div>
+    <!-- P_GAIN slider -->
+    <div class="bg-white rounded-2xl shadow p-4 flex flex-col gap-2">
+      <label class="font-semibold" for="pRange">Per‑prestige bonus P (0.05 – 0.30):
+        <span id="pVal" class="text-indigo-600 font-bold"></span></label>
+      <input id="pRange" type="range" min="0.05" max="0.3" step="0.005" class="w-full">
+    </div>
+    <!-- Base threshold slider -->
+    <div class="bg-white rounded-2xl shadow p-4 flex flex-col gap-2">
+      <label class="font-semibold" for="baseRange">Base threshold (10⁴ – 10⁸):
+        <span id="baseVal" class="text-indigo-600 font-bold"></span></label>
+      <input id="baseRange" type="range" min="10000" max="100000000" step="10000" class="w-full">
+    </div>
+  </div>
+
+  <!-- Charts container -->
+  <div class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+    <!-- Threshold chart -->
+    <div class="bg-white rounded-2xl shadow p-4">
+      <h2 class="font-semibold mb-2">Threshold per Rebirth (log scale)</h2>
+      <canvas id="thresholdChart"></canvas>
+    </div>
+
+    <!-- Multiplier chart -->
+    <div class="bg-white rounded-2xl shadow p-4">
+      <h2 class="font-semibold mb-2">Global Multiplier per Rebirth</h2>
+      <canvas id="multChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Stats Table -->
+  <div class="bg-white rounded-2xl shadow p-4 w-full max-w-5xl mt-6 overflow-auto">
+    <h2 class="font-semibold mb-4">Detailed Stats (first 40 rebirths)</h2>
+    <table class="min-w-full text-sm text-right">
+      <thead>
+        <tr class="border-b">
+          <th class="px-2 text-left">Cycle</th>
+          <th class="px-2">Threshold</th>
+          <th class="px-2">Prestige Gain</th>
+          <th class="px-2">Cumulative Prestige</th>
+          <th class="px-2">Multiplier ×</th>
+        </tr>
+      </thead>
+      <tbody id="statsBody"></tbody>
+    </table>
+  </div>
+
+  <script>
+    const rSlider   = document.getElementById('rRange');
+    const pSlider   = document.getElementById('pRange');
+    const baseSlider= document.getElementById('baseRange');
+    const rVal = document.getElementById('rVal');
+    const pVal = document.getElementById('pVal');
+    const baseVal = document.getElementById('baseVal');
+    const statsBody= document.getElementById('statsBody');
+
+    // defaults
+    rSlider.value   = 1.3;
+    pSlider.value   = 0.15;
+    baseSlider.value= 1000000;
+
+    const MAX_CYCLES   = 60;  // compute this many cycles for chart/table
+    const TABLE_CYCLES = 40;  // table rows
+
+    let thresholdChart, multChart;
+
+    function sim(base, R, P_GAIN, cycles=MAX_CYCLES){
+      let T = base;
+      let prestige = 0;
+      const data = [];
+      for(let i=1;i<=cycles;i++){
+        const M = 1 + prestige * P_GAIN;
+        const gain = Math.floor(Math.sqrt(T/1e6));
+        data.push({cycle:i, T, gain, cumPrestige: prestige, M});
+        prestige += gain;
+        const M_next = 1 + prestige * P_GAIN;
+        T = T * R * (M_next / M);
+      }
+      return data;
+    }
+
+    function render(){
+      const R = parseFloat(rSlider.value);
+      const P_GAIN = parseFloat(pSlider.value);
+      const BASE = parseFloat(baseSlider.value);
+
+      rVal.textContent   = R.toFixed(2);
+      pVal.textContent   = P_GAIN.toFixed(3);
+      baseVal.textContent= BASE.toExponential(0);
+
+      const rows = sim(BASE, R, P_GAIN);
+
+      // --- threshold chart ---
+      const cycles = rows.map(r=>r.cycle);
+      const thresholds = rows.map(r=>r.T);
+      if(thresholdChart) thresholdChart.destroy();
+      thresholdChart = new Chart(document.getElementById('thresholdChart'),{
+        type:'line',
+        data:{labels:cycles, datasets:[{label:'Threshold', data:thresholds, borderWidth:2, pointRadius:2}]},
+        options:{scales:{y:{type:'logarithmic',min:1e4,max:1e12,ticks:{callback:v=>'10^'+Math.round(Math.log10(v))}}}}
+      });
+
+      // --- multiplier chart ---
+      const multipliers = rows.map(r=>r.M);
+      if(multChart) multChart.destroy();
+      multChart = new Chart(document.getElementById('multChart'),{
+        type:'line',
+        data:{labels:cycles, datasets:[{label:'Multiplier ×', data:multipliers, borderColor:'#16a34a',borderWidth:2,pointRadius:2}]},
+        options:{scales:{y:{beginAtZero:true,suggestedMax: multipliers[TABLE_CYCLES-1]*1.2}}}
+      });
+
+      // --- stats table ---
+      statsBody.innerHTML = rows.slice(0, TABLE_CYCLES).map(r=>`<tr class="border-b hover:bg-gray-50"><td class="px-2 text-left">${r.cycle}</td><td class="px-2">${r.T.toExponential(3)}</td><td class="px-2">${r.gain}</td><td class="px-2">${r.cumPrestige}</td><td class="px-2">${r.M.toFixed(2)}</td></tr>`).join('');
+    }
+
+    render();
+    [rSlider,pSlider,baseSlider].forEach(sl=> sl.addEventListener('input', render));
+  </script>
+</body>
+</html>
