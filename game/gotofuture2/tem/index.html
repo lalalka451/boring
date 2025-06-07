@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Wood Idle Game - Simple Version</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 380px;
+      margin: 40px auto;
+      text-align: center;
+      position: relative;
+    }
+
+    button {
+      margin: 4px 2px;
+      padding: 6px 12px;
+      font-size: 14px;
+    }
+
+    #log {
+      height: 80px;
+      overflow: auto;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+    
+    .top-buttons {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    
+    .top-buttons button {
+      font-size: 12px;
+      padding: 4px 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top-buttons">
+    <button id="saveGameBtn">Save</button>
+    <button id="resetGameBtn">Reset</button>
+  </div>
+
+  <h2>Resources</h2>
+  <div id="wood">Wood: 0</div>
+
+  <h2>Manual Gathering</h2>
+  <button id="clickWood">Click for Wood (+1)</button>
+
+  <h2>Buildings</h2>
+  <button id="buySawmill">Buy Sawmill – 10 wood</button>
+
+  <div id="log"></div>
+
+  <script>
+    /* ---------- core state ---------- */
+    const res = { wood: 0 };
+    const bld = {
+      sawmill: { count: 0, rate: 0.5, cost: { wood: 10 } }
+    };
+
+    /* ---------- helpers ---------- */
+    function log(msg) {
+      const div = document.getElementById('log');
+      div.innerHTML = msg + '<br>' + div.innerHTML;
+    }
+    
+    function updateUI() {
+      wood.textContent = `Wood: ${res.wood.toFixed(1)}`;
+    }
+    
+    function saveGame() {
+      const saveData = { res, bld };
+      localStorage.setItem('woodIdleGame', JSON.stringify(saveData));
+    }
+    
+    function loadGame() {
+      const saveData = localStorage.getItem('woodIdleGame');
+      if (saveData) {
+        const data = JSON.parse(saveData);
+        Object.assign(res, data.res);
+        Object.assign(bld, data.bld);
+        log('Game loaded successfully');
+        updateUI();
+      }
+    }
+
+    /* ---------- manual gathering buttons ---------- */
+    clickWood.onclick = () => {
+      res.wood += 1;
+      log('Gathered 1 Wood');
+      updateUI();
+      saveGame();
+    };
+
+    /* ---------- buy buttons ---------- */
+    buySawmill.onclick = () => {
+      if (res.wood < 10) return log('Need more wood!');
+      res.wood -= 10;
+      bld.sawmill.count++;
+      log('Bought 1 Sawmill');
+      updateUI();
+      saveGame();
+    };
+
+    /* ---------- main loop (1 Hz) ---------- */
+    setInterval(() => {
+      const woodProduced = bld.sawmill.count * bld.sawmill.rate;
+      if (woodProduced > 0) {
+        res.wood += woodProduced;
+        log(`Produced ${woodProduced.toFixed(1)} wood from sawmills`);
+        updateUI();
+        saveGame();
+      }
+    }, 1000);
+
+    // Load game on start
+    loadGame();
+    updateUI();
+
+    /* Add these after the other button handlers */
+    saveGameBtn.onclick = () => {
+      saveGame();
+      log('Game saved manually');
+    };
+    
+    resetGameBtn.onclick = () => {
+      if (confirm('Are you sure you want to reset the game? All progress will be lost.')) {
+        localStorage.removeItem('woodIdleGame');
+        res.wood = 0;
+        bld.sawmill.count = 0;
+        log('Game reset');
+        updateUI();
+      }
+    };
+  </script>
+</body>
+
+</html>

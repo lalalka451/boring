@@ -1,0 +1,77 @@
+.game-container {
+  font-family: sans-serif;
+  max-width: 380px;
+  margin: 40px auto;
+  text-align: center;
+  position: relative;
+}
+
+button {
+  margin: 4px 2px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+}
+
+button:hover {
+  background-color: #e8e8e8;
+}
+
+.log {
+  height: 80px;
+  overflow: auto;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  font-size: 13px;
+  text-align: left;
+  padding: 5px;
+}
+
+.top-buttons {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.top-buttons button {
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+.resources {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+h2 {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+/* Add these styles for log entries */
+.log-entry {
+  padding: 2px 5px;
+  border-bottom: 1px solid #eee;
+}
+
+.log-resource {
+  color: #2563eb;
+}
+
+.log-building {
+  color: #16a34a;
+}
+
+.log-system {
+  color: #6b7280;
+}
+
+.log-error {
+  color: #dc2626;
+}
+
+
